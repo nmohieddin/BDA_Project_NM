@@ -1,0 +1,36 @@
+show databases;
+use baseball;
+
+show tables;
+
+
+#Historic Average 
+
+SELECT batter, (SUM(Hit)/SUM(atBat)) FROM batter_counts AS Batting_Average
+GROUP BY batter;
+
+
+#Create table with date
+
+CREATE TABLE IF NOT EXISTS Averages_table
+	AS (SELECT b.Hit, b.atBat, b.batter, b.game_id, g.local_date 
+		FROM batter_counts b 
+		JOIN game g
+		ON b.game_id = g.game_id);
+
+
+#Annual Average
+		
+SELECT (SUM(Hit)/SUM(atBat)), batter, YEAR(local_date)
+FROM Averages_table AS Annual_Average
+GROUP BY batter & YEAR(local_date);
+
+
+#Rolling Average
+
+SELECT a.batter, a.local_date, (SUM(b.Hit)/SUM(b.atBat))
+  FROM Averages_table a
+  JOIN Averages_table b
+  	ON a.batter = b.batter
+ WHERE b.local_date >= a.local_date - 100 AND b.local_date < a.local_date # to test add: "AND a.batter = 110029"
+ GROUP BY batter
