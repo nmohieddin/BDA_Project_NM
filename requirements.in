@@ -1,1 +1,7 @@
 numpy
+pandas
+plotly
+scikit-learn
+mariadb
+pyspark
+pyspark-stubs
