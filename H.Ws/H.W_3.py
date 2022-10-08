@@ -87,3 +87,15 @@ Rolling_Avg.show()
 
 Rolling_Avg.createOrReplaceTempView("Rolling_Avg")
 Rolling_Avg.persist(StorageLevel.DISK_ONLY)
+
+# Transformation
+column = np.array(Rolling_Avg["batter"])
+string_column = str(column)
+count_vectorizer = CountVectorizer(inputCol=string_column, outputCol="transformed")
+count_vectorizer_fitted = count_vectorizer.fit(Rolling_Avg)
+Rolling_Avg_trans = count_vectorizer.transform(Rolling_Avg)
+Rolling_Avg_trans.show()
+
+
+
+
