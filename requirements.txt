@@ -8,7 +8,7 @@ joblib==1.2.0
     # via scikit-learn
 mariadb==1.1.4
     # via -r requirements.in
-numpy==1.23.1
+numpy==1.23.3
     # via
     #   -r requirements.in
     #   pandas
@@ -28,11 +28,11 @@ pyspark-stubs==3.0.0.post3
     # via -r requirements.in
 python-dateutil==2.8.2
     # via pandas
-pytz==2022.2.1
+pytz==2022.4
     # via pandas
 scikit-learn==1.1.2
     # via -r requirements.in
-scipy==1.9.1
+scipy==1.9.2
     # via scikit-learn
 six==1.16.0
     # via python-dateutil
