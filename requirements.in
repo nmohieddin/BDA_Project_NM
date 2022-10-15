@@ -6,3 +6,5 @@ mariadb
 pyspark
 pyspark-stubs
 statsmodels
+matplotlib
+tabulate
