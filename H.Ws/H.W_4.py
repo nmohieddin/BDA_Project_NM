@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas
 import statsmodels.api
@@ -7,12 +8,15 @@ from plotly import graph_objects as go
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import confusion_matrix, mean_absolute_error
 from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
 from tabulate import tabulate
 
-df = pandas.read_csv(
-    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
-).dropna().reset_index()
+df = (
+    pandas.read_csv(
+        "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
+    )
+    .dropna()
+    .reset_index()
+)
 
 print(df)
 print(df.dtypes)
@@ -24,14 +28,14 @@ y = df[response]
 
 
 # for categorical predictors
-y_categorical = y.select_dtypes(include=['bool', 'object'])
+y_categorical = y.select_dtypes(include=["bool", "object"])
 # fo continuous predictors
-y_continuous = y.select_dtypes(include=['int', 'float'])
+y_continuous = y.select_dtypes(include=["int", "float"])
 
 # for categorical predictors
-x_categorical = x.select_dtypes(include=['bool', 'object'])
+x_categorical = x.select_dtypes(include=["bool", "object"])
 # fo continuous predictors
-x_continuous = x.select_dtypes(include=['int', 'float'])
+x_continuous = x.select_dtypes(include=["int", "float"])
 
 
 # predictor - cont: Age
@@ -67,6 +71,7 @@ def cat_response_cat_predictor(var_1, var_2):
     )
     fig_no_relationship.show()
     return
+
 
 # 2_cat response - cont predictor
 def cat_resp_cont_predictor(var_3):
@@ -110,6 +115,7 @@ def cat_resp_cont_predictor(var_3):
     fig_2.show()
     return
 
+
 # 3_con response - cat predictor
 def cont_resp_cat_predictor(var_4):
     n = 200
@@ -151,6 +157,7 @@ def cont_resp_cat_predictor(var_4):
     fig_2.show()
     return
 
+
 # 4_con response - con predictor
 def cont_response_cont_predictor(var_5, var_6):
     fig = px.scatter(x=var_5, y=var_6, trendline="ols")
@@ -162,6 +169,7 @@ def cont_response_cont_predictor(var_5, var_6):
     fig.show()
     return
 
+
 def main():
     for i in x:
         cat_response_cat_predictor(x_categorical[i], y_categorical[i])
@@ -169,6 +177,7 @@ def main():
         cat_resp_cont_predictor(x_continuous[i])
         cont_resp_cat_predictor(y_continuous[i])
     return
+
 
 # p-value & tscore & Regression (Continuous)
 resp_test = None
@@ -192,6 +201,8 @@ for val in predictors:  # x.columns
         pred_test = "categorical"
     else:
         pred_test = "continuous"
+
+
 def main():
     if pred_test == "continuous":
         feature_name = val
@@ -262,22 +273,24 @@ def main():
 def main():
     mae = mean_absolute_error(x_continuous, y_continuous)
 
-
     ## plot the data & predictions with the mae #
-    plt.plot(x_continuous,y_continuous)
-    plt.errorbar(x_continuous,y_train,mae)
-    plt.title('Sinusoidal Data with Noise + Predictions')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.legend(['y_true','y_pred'])
+    plt.plot(x_continuous, y_continuous)
+    plt.errorbar(x_continuous, y_train, mae)
+    plt.title("Sinusoidal Data with Noise + Predictions")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.legend(["y_true", "y_pred"])
     plt.show()
     return
 
-#Create Table
-data = [["t_value", t_value],
-        ["p_value", p_value],
-        ["Linear Regression", linear_regression_model_fitted],
-        ["Logistic Regression", log_regression_model_fitted],
-        ["RandomForestRegressor", rf],
-        ["MeanSquaredDiffWeighted", mae]]
+
+# Create Table
+data = [
+    ["t_value", t_value],
+    ["p_value", p_value],
+    ["Linear Regression", linear_regression_model_fitted],
+    ["Logistic Regression", log_regression_model_fitted],
+    ["RandomForestRegressor", rf],
+    ["MeanSquaredDiffWeighted", mae],
+]
 print(tabulate(data, tablefmt="fancy_grid"))
