@@ -37,11 +37,6 @@ x_categorical = x.select_dtypes(include=["bool", "object"])
 # fo continuous predictors
 x_continuous = x.select_dtypes(include=["int", "float"])
 
-
-# predictor - cont: Age
-# predictor - cat: sex, alone
-# response - cat: survived, alive
-
 # build code for all 4 senarios
 
 # 1_cat response - cat predictor
